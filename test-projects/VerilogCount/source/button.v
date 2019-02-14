@@ -5,7 +5,7 @@ module button (
   );
   
   reg [7:0] counter = 8'b0;
-  assign out = counter[0];
+  assign out = counter;
 
   /* Combinational Logic */
   always @* begin
@@ -18,7 +18,7 @@ module button (
   always @(posedge clk) begin
     if (rst) begin
       // Add flip-flop reset values here
-      counter[0] = ~counter[0];
+      counter = counter + 1;
     end else begin
       // Add flip-flop q <= d statements here
     end

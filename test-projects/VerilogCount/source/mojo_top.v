@@ -35,9 +35,16 @@ assign spi_channel = 4'bzzzz;
 //assign led = 8'b0;
 //assign led = mycount;
 
+wire buttonpressed;
+button_conditioner buttonconditioner (
+      .clk(clk),
+      .btn(rst),
+      .out(buttonpressed)
+  );
+
 button my_button (
       .clk(clk),
-      .rst(rst),
+      .rst(buttonpressed),
       .out(led)
     );
 
