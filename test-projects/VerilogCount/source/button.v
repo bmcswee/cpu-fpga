@@ -10,7 +10,7 @@ module button (
   /* Combinational Logic */
   always @* begin
     if (rst) begin
-      counter = 1;
+      //counter[0] = ~counter[0];
     end
   end
   
@@ -18,6 +18,7 @@ module button (
   always @(posedge clk) begin
     if (rst) begin
       // Add flip-flop reset values here
+      counter[0] = ~counter[0];
     end else begin
       // Add flip-flop q <= d statements here
     end
