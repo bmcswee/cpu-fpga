@@ -32,6 +32,10 @@ assign spi_channel = 4'bzzzz;
 //assign led = 8'b0;
 
 // wire onboard LEDs to trainer DIP switches
-wire led = trainer_dip;
+//wire led = trainer_dip;
+assign led[7] = trainer_dip[0];
+assign led[6] = 1'b1;
+assign led[5:0] = 6'b0;
+
 
 endmodule
