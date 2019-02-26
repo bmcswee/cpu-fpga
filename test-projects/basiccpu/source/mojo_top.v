@@ -58,8 +58,10 @@ assign dst = trainer_dip[5:4];
 wire [1:0] src;
 assign src = trainer_dip[7:6];
 
-reg [1:0] destreg = 2'b00;
-reg [1:0] srcreg = 2'b00;
+// cpu internal caches
+reg [7:0] destvalue = 8'b00000000;
+reg [7:0] srcvalue = 8'b00000000;
+reg [7:0] cpuinternal = 8'b00000000;
 
 button cycle_cpu (
       .clk(clk),
@@ -70,21 +72,28 @@ button cycle_cpu (
 always @(posedge clk) begin
   if (activate_cpu) begin
     case (src)
-      2'b01    : destreg = r1;
-      2'b10    : destreg = r2;
-      2'b11    : destreg = r3;
+      2'b01    : destvalue = r1;
+      2'b10    : destvalue = r2;
+      2'b11    : destvalue = r3;
     endcase
     
     case (dst)
-      2'b01    : srcreg = r1;
-      2'b10    : srcreg = r2;
-      2'b11    : srcreg = r3;
+      2'b01    : srcvalue = r1;
+      2'b10    : srcvalue = r2;
+      2'b11    : srcvalue = r3;
     endcase
     
     case (opcode)
-      4'b0000  : destreg = destreg; // NOP
-      4'b0001  : destreg = srcreg + destreg; // ADD
-      4'b0010  : destreg = destreg - srcreg; // SUB
+      4'b0000  : cpuinternal = destvalue; // NOP
+      4'b0001  : cpuinternal = srcvalue + destvalue; // ADD
+      4'b0010  : cpuinternal = destvalue - srcvalue; // SUB
+    endcase
+    
+    // now assign the new value to its proper place
+    case (dst)
+      2'b01    : r1 = cpuinternal;
+      2'b10    : r2 = cpuinternal;
+      2'b11    : r3 = cpuinternal;
     endcase
   end
 end
