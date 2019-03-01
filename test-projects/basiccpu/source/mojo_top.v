@@ -37,9 +37,9 @@ wire activate_cpu;
 
 // assign initial values to registers
 initial r0 = 8'b00000000;
-initial r1 = 8'b00000001;
-initial r2 = 8'b00000010;
-initial r3 = 8'b00000011;
+initial r1 = 8'b00000000;
+initial r2 = 8'b00000000;
+initial r3 = 8'b00000000;
 
 // convenience variables
 wire [3:0] opcode;
@@ -78,6 +78,12 @@ always @(posedge clk) begin
       4'b0000  : cpuinternal = destvalue; // NOP
       4'b0001  : cpuinternal = srcvalue + destvalue; // ADD
       4'b0010  : cpuinternal = destvalue - srcvalue; // SUB
+		  4'b0011	: cpuinternal = ~destvalue; // NOT
+		  4'b0100	: cpuinternal = srcvalue & destvalue; // AND
+		  4'b0101	: cpuinternal = srcvalue | destvalue; // OR
+		  4'b0110	: cpuinternal = srcvalue ^ destvalue; // XOR
+		  4'b0111	: cpuinternal = destvalue + 1; // INC
+		  4'b1000	: cpuinternal = src; // MOV, !!!!IMPORTANT: src must be a value, not a register
     endcase
     
     // now assign the new value to its proper place

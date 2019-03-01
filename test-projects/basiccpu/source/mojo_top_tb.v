@@ -61,10 +61,23 @@ module mojo_top_tb;
 		#100;
         
 		// Add stimulus here
+		#50 trainer_dip = 8'b10001111; // MOV R3 <- 3
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 trainer_dip = 8'b10001010; // MOV R2 <- 2
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 trainer_dip = 8'b10000101; // MOV R1 <- 1
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		
 		#50 trainer_dip = 8'b00011110; // ADD R3 <- R2
 		#25 activate_button = 1;
 		#25 activate_button = 0;
 		#50 trainer_dip = 8'b00101001; // SUB R2 <- R1
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 trainer_dip = 8'b00110100; // NOT R1
 		#25 activate_button = 1;
 		#25 activate_button = 0;
 		#200 $stop;
