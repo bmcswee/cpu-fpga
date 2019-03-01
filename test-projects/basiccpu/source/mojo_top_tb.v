@@ -64,6 +64,9 @@ module mojo_top_tb;
 		#50 trainer_dip = 8'b00011110; // ADD R3 <- R2
 		#25 activate_button = 1;
 		#25 activate_button = 0;
+		#50 trainer_dip = 8'b00101001; // SUB R2 <- R1
+		#25 activate_button = 1;
+		#25 activate_button = 0;
 		#200 $stop;
 	end
       

@@ -62,13 +62,13 @@ button cycle_cpu (
 
 always @(posedge clk) begin
   if (activate_cpu) begin
-    case (src)
+    case (dst)
       2'b01    : destvalue = r1;
       2'b10    : destvalue = r2;
       2'b11    : destvalue = r3;
     endcase
     
-    case (dst)
+    case (src)
       2'b01    : srcvalue = r1;
       2'b10    : srcvalue = r2;
       2'b11    : srcvalue = r3;
