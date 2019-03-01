@@ -5,7 +5,12 @@ module mojo_top(
     // Outputs to the 8 onboard LEDs
     output[7:0]led,
     // Brendan stuff
-    input [7:0] trainer_dip // opcode input
+    input [7:0] trainer_dip, // opcode input
+	 // debug outputs
+	 output [7:0] r0view,
+	 output [7:0] r1view,
+	 output [7:0] r2view,
+	 output [7:0] r3view
     );
 
 
@@ -17,6 +22,12 @@ reg [7:0] r0; // program counter
 reg [7:0] r1;
 reg [7:0] r2;
 reg [7:0] r3;
+
+// DEBUG purposes only
+assign r3view = r3;
+assign r2view = r2;
+assign r1view = r1;
+assign r0view = r0;
 
 // wire the LEDs to r3 for output display purposes
 assign led = r3;
@@ -75,6 +86,9 @@ always @(posedge clk) begin
       2'b10    : r2 = cpuinternal;
       2'b11    : r3 = cpuinternal;
     endcase
+	 
+	 // increment program counter
+	 r0 = r0 + 1;
   end
 end
 

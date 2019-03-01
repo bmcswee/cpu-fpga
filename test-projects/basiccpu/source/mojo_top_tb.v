@@ -31,13 +31,18 @@ module mojo_top_tb;
 
 	// Outputs
 	wire [7:0] led;
+	wire [7:0] r0view, r1view, r2view, r3view;
 
 	// Instantiate the Unit Under Test (UUT)
 	mojo_top uut (
 	 .clk(clk),
 	 .rst(activate_button),
     .trainer_dip(trainer_dip),
-    .led(led)
+    .led(led),
+	 .r0view(r0view),
+	 .r1view(r1view),
+	 .r2view(r2view),
+	 .r3view(r3view)
 	);
 	
 	initial begin
@@ -58,6 +63,7 @@ module mojo_top_tb;
 		// Add stimulus here
 		#50 trainer_dip = 8'b00011110; // ADD R3 <- R2
 		#25 activate_button = 1;
+		#25 activate_button = 0;
 		#200 $stop;
 	end
       
