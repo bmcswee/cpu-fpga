@@ -107,6 +107,24 @@ module mojo_top_tb;
 		#50 
 		#25 activate_button = 1;
 		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
 		
 		#400 $stop;
 	end

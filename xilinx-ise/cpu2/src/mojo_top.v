@@ -62,6 +62,7 @@ reg [7:0] destvalue = 8'b00000000;
 reg [7:0] srcvalue = 8'b00000000;
 reg [7:0] cpuinternal = 8'b00000000;
 reg update_dst = 1'b0;
+reg increment_pc = 1'b0;
 
 // instruction retrieved from "program"
 wire [7:0] program_instruction;
@@ -87,6 +88,7 @@ always @(posedge clk) begin
     src = program_instruction[1:0];
 	 
 	 update_dst = 1'b1; // by default, assume we need to update the destination
+	 increment_pc = 1'b1; // by default, increment the program counter
   
     // process the instruction
     
@@ -112,7 +114,7 @@ always @(posedge clk) begin
 		4'b0110	: cpuinternal = srcvalue ^ destvalue; // XOR
 		4'b0111	: cpuinternal = destvalue + 1; // INC
 		4'b1000	: cpuinternal = src; // MOV, !!!!IMPORTANT: src must be a value, not a register
-		4'b1001	: 
+		4'b1001	: // CMP
 			begin
 				update_dst = 1'b0;
 				if (destvalue < srcvalue) begin
@@ -124,6 +126,20 @@ always @(posedge clk) begin
 				end else begin
 					zf = 1'b1;
 					cf = 1'b0;
+				end
+			end
+		4'b1010	: // JZ
+			begin
+				if (zf  == 1'b1) begin
+					r0 = program_instruction[3:0]; // set PC to low 4 bits of instruction
+					increment_pc = 1'b0;
+				end
+			end
+		4'b1011	: // JNZ
+			begin
+				if (zf  != 1'b1) begin
+					r0 = program_instruction[3:0]; // set PC to low 4 bits of instruction
+					increment_pc = 1'b0;
 				end
 			end
     endcase
@@ -138,7 +154,9 @@ always @(posedge clk) begin
 	 end
 	 
 	 // increment program counter
-	 r0 = r0 + 1;
+	 if (increment_pc == 1) begin
+		r0 = r0 + 1;
+	 end
   end
 end
 
