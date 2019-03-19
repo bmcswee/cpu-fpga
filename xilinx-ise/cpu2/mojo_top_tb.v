@@ -32,6 +32,7 @@ module mojo_top_tb;
 	// Outputs
 	wire [7:0] led;
 	wire [7:0] r0view, r1view, r2view, r3view;
+	wire zfview, cfview;
 
 	// Instantiate the Unit Under Test (UUT)
 	mojo_top uut (
@@ -42,7 +43,9 @@ module mojo_top_tb;
 	 .r0view(r0view),
 	 .r1view(r1view),
 	 .r2view(r2view),
-	 .r3view(r3view)
+	 .r3view(r3view),
+	 .zfview(zfview),
+	 .cfview(cfview)
 	);
 	
 	initial begin
@@ -80,7 +83,32 @@ module mojo_top_tb;
 		#50 
 		#25 activate_button = 1;
 		#25 activate_button = 0;
-		#200 $stop;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		#50 
+		#25 activate_button = 1;
+		#25 activate_button = 0;
+		
+		#400 $stop;
 	end
       
 endmodule
