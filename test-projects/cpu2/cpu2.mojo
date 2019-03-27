@@ -4,7 +4,6 @@
     <src top="true">mojo_top.v</src>
     <src>program.v</src>
     <src>button.v</src>
-    <src>mojo_top_tb.v</src>
     <ucf>mojo.ucf</ucf>
   </files>
 </project>
