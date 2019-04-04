@@ -10,10 +10,11 @@ module program (
   assign out = outputline;
   
   initial begin
-    program[0] = 8'b10001011; // MOV R2 <- 3
-    program[1] = 8'b10000110; // MOV R1 <- 2
-    program[2] = 8'b00011001; // ADD R2, R1
-    program[3] = 8'b00110100; // NOT R1
+    program[0] = 8'b00000000; // NOP
+    program[1] = 8'b10001011; // MOV R2 <- 3
+    program[2] = 8'b10000110; // MOV R1 <- 2
+    program[3] = 8'b00011001; // ADD R2, R1
+    program[4] = 8'b00110100; // NOT R1
     
   // OLD PROGRAM
     //program[0] = 8'b10001111; // MOV R3 <- 3
@@ -29,6 +30,7 @@ module program (
 	 // End while
 	 
 	 //program[7] = 8'b00011101; // ADD R3, R1
+   outputline = program[0];
   end
 
   /* Combinational Logic */
@@ -38,11 +40,7 @@ module program (
   
   /* Sequential Logic */
   always @(posedge clk) begin
-    if (rst) begin
-      // Add flip-flop reset values here
-    end else begin
-      // Add flip-flop q <= d statements here
-    end
+    //outputline = program[linenumber];
   end
   
 endmodule

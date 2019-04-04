@@ -126,13 +126,13 @@ always @(posedge clk) begin
       4'b0000  : cpuinternal = destvalue; // NOP
       4'b0001  : cpuinternal = srcvalue + destvalue; // ADD
       4'b0010  : cpuinternal = destvalue - srcvalue; // SUB
-		4'b0011	: cpuinternal = ~destvalue; // NOT
-		4'b0100	: cpuinternal = srcvalue & destvalue; // AND
-		4'b0101	: cpuinternal = srcvalue | destvalue; // OR
-		4'b0110	: cpuinternal = srcvalue ^ destvalue; // XOR
-		4'b0111	: cpuinternal = destvalue + 1; // INC
-		4'b1000	: cpuinternal = src; // MOV, !!!!IMPORTANT: src must be a value, not a register
-		4'b1001	: // CMP
+		  4'b0011	: cpuinternal = ~destvalue; // NOT
+		  4'b0100	: cpuinternal = srcvalue & destvalue; // AND
+		  4'b0101	: cpuinternal = srcvalue | destvalue; // OR
+		  4'b0110	: cpuinternal = srcvalue ^ destvalue; // XOR
+		  4'b0111	: cpuinternal = destvalue + 1; // INC
+		  4'b1000	: cpuinternal = src; // MOV, !!!!IMPORTANT: src must be a value, not a register
+		  4'b1001	: // CMP
 			begin
 				update_dst = 1'b0;
 				if (destvalue < srcvalue) begin
@@ -146,7 +146,7 @@ always @(posedge clk) begin
 					cf = 1'b0;
 				end
 			end
-		4'b1010	: // JZ
+		  4'b1010	: // JZ
 			begin
 				if (zf  == 1'b1) begin
 					r0 = program_instruction[3:0]; // set PC to low 4 bits of instruction
@@ -154,7 +154,7 @@ always @(posedge clk) begin
           update_dst = 1'b0;
 				end
 			end
-		4'b1011	: // JNZ
+		  4'b1011	: // JNZ
 			begin
 				if (zf  != 1'b1) begin
 					r0 = program_instruction[3:0]; // set PC to low 4 bits of instruction
