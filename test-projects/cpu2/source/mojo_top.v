@@ -162,6 +162,12 @@ always @(posedge clk) begin
           update_dst = 1'b0;
 				end
 			end
+      4'b1100 : // JMP
+      begin
+        r0 = program_instruction[3:0];
+        increment_pc = 1'b0;
+        update_dst = 1'b0;
+      end
     endcase
     
     // now assign the new value to its proper place
