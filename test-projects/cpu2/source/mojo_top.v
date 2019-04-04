@@ -19,10 +19,10 @@ module mojo_top(
     output avr_rx, // AVR Rx => FPGA Tx
     input avr_rx_busy, // AVR Rx buffer full
 	 // debug outputs
-	 output [7:0] r0view,
+	 //output [7:0] r0view,
 	 output [7:0] r1view,
 	 output [7:0] r2view,
-	 output [7:0] r3view,
+	 //output [7:0] r3view,
 	 output zfview,
 	 output cfview
     );
@@ -46,14 +46,14 @@ reg zf; // Zero flag
 reg cf; // Carry flag
 
 // DEBUG purposes only
-assign r3view = r3;
+//assign r3view = r3;
 assign r2view = r2;
 assign r1view = r1;
-assign r0view = r0;
-assign zfview = zf;
-assign cfview = cf;
+//assign r0view = r0;
+//assign zfview = zf;
+//assign cfview = cf;
 
-// wire the LEDs to r3 for output display purposes
+// wire the LEDs to r0 for output display purposes
 assign led = r0;
 
 // other vars
@@ -151,6 +151,7 @@ always @(posedge clk) begin
 				if (zf  == 1'b1) begin
 					r0 = program_instruction[3:0]; // set PC to low 4 bits of instruction
 					increment_pc = 1'b0;
+          update_dst = 1'b0;
 				end
 			end
 		4'b1011	: // JNZ
@@ -158,6 +159,7 @@ always @(posedge clk) begin
 				if (zf  != 1'b1) begin
 					r0 = program_instruction[3:0]; // set PC to low 4 bits of instruction
 					increment_pc = 1'b0;
+          update_dst = 1'b0;
 				end
 			end
     endcase
