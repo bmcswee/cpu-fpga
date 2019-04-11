@@ -22,7 +22,7 @@ module mojo_top(
 	 //output [7:0] r0view,
 	 output [7:0] r1view,
 	 output [7:0] r2view,
-	 //output [7:0] r3view,
+	 output [7:0] r3view,
 	 output zfview,
 	 output cfview
     );
@@ -46,7 +46,7 @@ reg zf; // Zero flag
 reg cf; // Carry flag
 
 // DEBUG purposes only
-//assign r3view = r3;
+assign r3view = r3;
 assign r2view = r2;
 assign r1view = r1;
 //assign r0view = r0;

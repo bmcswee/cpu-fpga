@@ -15,7 +15,9 @@ module program (
     program[2] = 8'b10000110; // MOV R1 <- 2
     program[3] = 8'b00011001; // ADD R2, R1
     program[4] = 8'b00110100; // NOT R1
-    program[5] = 8'b11000001; // JMP instruction 1
+    program[6] = 8'b10001101;
+    program[7] = 8'b00111100;
+    program[8] = 8'b11000001; // JMP instruction 1
     
   // OLD PROGRAM
     //program[0] = 8'b10001111; // MOV R3 <- 3
