@@ -1,5 +1,5 @@
 module mojo_top(
-// 50MHz clock input
+    // 50MHz clock input
     input clk,
     // Input from reset button (active low)
     input rst_n,
@@ -18,24 +18,20 @@ module mojo_top(
     input avr_tx, // AVR Tx => FPGA Rx
     output avr_rx, // AVR Rx => FPGA Tx
     input avr_rx_busy, // AVR Rx buffer full
-	 // debug outputs
-	 //output [7:0] r0view,
-	 output [7:0] r1view,
-	 output [7:0] r2view,
-	 output [7:0] r3view,
-	 output zfview,
-	 output cfview
+    // debug outputs
+    output [7:0] r1view,
+    output [7:0] r2view,
+    output [7:0] r3view,
+    output zfview,
+    output cfview
     );
 
-wire rst = ~rst_n; // make reset active high
+wire rst = ~rst_n; // make reset active high (boilerplate)
 
-// these signals should be high-z when not used
+// these signals should be high-z when not used (boilerplate)
 assign spi_miso = 1'bz;
 assign avr_rx = 1'bz;
 assign spi_channel = 4'bzzzz;
-
-// ABOVE: Boilerplate
-// BELOW: My code
 
 // create registers
 reg [7:0] r0; // program counter
@@ -49,7 +45,6 @@ reg cf; // Carry flag
 assign r3view = r3;
 assign r2view = r2;
 assign r1view = r1;
-//assign r0view = r0;
 //assign zfview = zf;
 //assign cfview = cf;
 
@@ -69,11 +64,8 @@ initial cf = 1'b0;
 
 // convenience variables
 reg [3:0] opcode;
-//assign opcode = trainer_dip[7:4];
 reg [1:0] dst;
-//assign dst = trainer_dip[3:2];
 reg [1:0] src;
-//assign src = trainer_dip[1:0];
 
 // cpu internal caches
 reg [7:0] destvalue = 8'b00000000;
@@ -126,13 +118,13 @@ always @(posedge clk) begin
       4'b0000  : cpuinternal = destvalue; // NOP
       4'b0001  : cpuinternal = srcvalue + destvalue; // ADD
       4'b0010  : cpuinternal = destvalue - srcvalue; // SUB
-		  4'b0011	: cpuinternal = ~destvalue; // NOT
-		  4'b0100	: cpuinternal = srcvalue & destvalue; // AND
-		  4'b0101	: cpuinternal = srcvalue | destvalue; // OR
-		  4'b0110	: cpuinternal = srcvalue ^ destvalue; // XOR
-		  4'b0111	: cpuinternal = destvalue + 1; // INC
-		  4'b1000	: cpuinternal = src; // MOV, !!!!IMPORTANT: src must be a value, not a register
-		  4'b1001	: // CMP
+      4'b0011	: cpuinternal = ~destvalue; // NOT
+      4'b0100	: cpuinternal = srcvalue & destvalue; // AND
+      4'b0101	: cpuinternal = srcvalue | destvalue; // OR
+      4'b0110	: cpuinternal = srcvalue ^ destvalue; // XOR
+      4'b0111	: cpuinternal = destvalue + 1; // INC
+      4'b1000	: cpuinternal = src; // MOV, !!!!IMPORTANT: src must be a value, not a register
+      4'b1001	: // CMP
 			begin
 				update_dst = 1'b0;
 				if (destvalue < srcvalue) begin
